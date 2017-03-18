@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG =MainActivity.class.getSimpleName();
     TextView tv;
 
     @Override
@@ -15,6 +16,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tv = (TextView)findViewById(R.id.ipadress);
+
+        UARTHelper.getInstance().open();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "Loopback Destroyed");
+
+        UARTHelper.getInstance().close();
     }
 
     @Override
